@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="swipe_up_actions">
+        <item>App Drawer</item>
+        <item>Search</item>
+        <item>Settings</item>
+        <item>Notifications</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="swipe_up_action_values">
+        <item>app_drawer</item>
+        <item>search</item>
+        <item>settings</item>
+        <item>notifications</item>
+        <item>none</item>
+    </string-array>
+</resources>

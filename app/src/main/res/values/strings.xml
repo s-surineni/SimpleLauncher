@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Simple Launcher</string>
+    <string name="app_drawer">App Drawer</string>
+    <string name="settings">Settings</string>
+    <string name="wallpaper">Wallpaper</string>
+    <string name="search_apps">Search apps</string>
+    <string name="grid_columns">Grid Columns</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="wallpaper_opacity">Wallpaper Opacity</string>
+    <string name="swipe_up_gesture">Swipe Up Gesture</string>
+    <string name="choose_wallpaper">Choose Wallpaper</string>
+    <string name="gallery">Gallery</string>
+    <string name="camera">Camera</string>
+    <string name="default_wallpapers">Default Wallpapers</string>
+    <string name="solid_color">Solid Color</string>
+</resources>

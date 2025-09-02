@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Display"
+        app:iconSpaceReserved="false">
+
+        <SeekBarPreference
+            android:key="grid_columns"
+            android:title="Grid Columns"
+            android:summary="Number of columns in app grid"
+            android:defaultValue="4"
+            android:max="6"
+            android:min="3"
+            app:showSeekBarValue="true" />
+
+        <SwitchPreferenceCompat
+            android:key="dark_theme"
+            android:title="Dark Theme"
+            android:summary="Use dark theme for launcher"
+            android:defaultValue="false" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Wallpaper"
+        app:iconSpaceReserved="false">
+
+        <SeekBarPreference
+            android:key="wallpaper_opacity"
+            android:title="Wallpaper Opacity"
+            android:summary="Adjust wallpaper transparency"
+            android:defaultValue="100"
+            android:max="100"
+            android:min="0"
+            app:showSeekBarValue="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Gestures"
+        app:iconSpaceReserved="false">
+
+        <ListPreference
+            android:key="swipe_up_gesture"
+            android:title="Swipe Up Gesture"
+            android:summary="Action for swipe up gesture"
+            android:entries="@array/swipe_up_actions"
+            android:entryValues="@array/swipe_up_action_values"
+            android:defaultValue="app_drawer" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="About"
+        app:iconSpaceReserved="false">
+
+        <Preference
+            android:key="version"
+            android:title="Version"
+            android:summary="1.0.0" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

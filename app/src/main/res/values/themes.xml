@@ -1,0 +1,44 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.SimpleLauncher" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Window background -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- Full screen -->
+        <item name="android:windowFullscreen">true</item>
+        <!-- Hide system UI -->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!-- App Drawer Theme -->
+    <style name="Theme.SimpleLauncher.AppDrawer" parent="Theme.SimpleLauncher">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/purple_500</item>
+        <item name="android:navigationBarColor">@color/purple_500</item>
+    </style>
+
+    <!-- Settings Theme -->
+    <style name="Theme.SimpleLauncher.Settings" parent="Theme.SimpleLauncher">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/purple_500</item>
+        <item name="android:navigationBarColor">@color/purple_500</item>
+    </style>
+
+    <!-- Wallpaper Picker Theme -->
+    <style name="Theme.SimpleLauncher.WallpaperPicker" parent="Theme.SimpleLauncher">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/purple_500</item>
+        <item name="android:navigationBarColor">@color/purple_500</item>
+    </style>
+</resources>
