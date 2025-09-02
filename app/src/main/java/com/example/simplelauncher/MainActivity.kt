@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
         
         binding.appGrid.apply {
-            layoutManager = GridLayoutManager(this@MainActivity, 4)
+            layoutManager = GridLayoutManager(this@MainActivity, 4) // 4 apps in a row
             adapter = appAdapter
         }
         
@@ -52,14 +52,39 @@ class MainActivity : AppCompatActivity() {
         intent.addCategory(Intent.CATEGORY_LAUNCHER)
         
         val resolveInfoList = packageManager.queryIntentActivities(intent, 0)
-        installedApps = resolveInfoList.map { resolveInfo ->
+        val allApps = resolveInfoList.map { resolveInfo ->
             AppInfo(
                 packageName = resolveInfo.activityInfo.packageName,
                 appName = resolveInfo.loadLabel(packageManager).toString(),
                 icon = resolveInfo.loadIcon(packageManager),
                 className = resolveInfo.activityInfo.name
             )
-        }.sortedBy { it.appName }
+        }
+        
+        // Filter to show only specific apps: Phone, Messages, Chrome, Camera
+        val targetApps = listOf(
+            "com.android.dialer", // Phone
+            "com.google.android.apps.messaging", // Messages
+            "com.android.chrome", // Chrome
+            "com.google.android.apps.camera" // Camera
+        )
+        
+        installedApps = allApps.filter { app ->
+            targetApps.contains(app.packageName) || 
+            app.appName.equals("Phone", ignoreCase = true) ||
+            app.appName.equals("Messages", ignoreCase = true) ||
+            app.appName.equals("Chrome", ignoreCase = true) ||
+            app.appName.equals("Camera", ignoreCase = true)
+        }.sortedBy { app ->
+            // Sort in the order: Phone, Messages, Chrome, Camera
+            when {
+                app.packageName.contains("dialer") || app.appName.equals("Phone", ignoreCase = true) -> 0
+                app.packageName.contains("messaging") || app.appName.equals("Messages", ignoreCase = true) -> 1
+                app.packageName.contains("chrome") || app.appName.equals("Chrome", ignoreCase = true) -> 2
+                app.packageName.contains("camera") || app.appName.equals("Camera", ignoreCase = true) -> 3
+                else -> 4
+            }
+        }
         
         appAdapter.submitList(installedApps)
     }
