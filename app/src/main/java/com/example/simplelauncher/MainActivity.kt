@@ -1,9 +1,14 @@
 package com.example.simplelauncher
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.GridLayout
 import android.widget.ImageView
@@ -21,15 +26,42 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appAdapter: AppGridAdapter
     private var installedApps: List<AppInfo> = emptyList()
+    private lateinit var gestureDetector: GestureDetector
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         
+        setupGestureDetector()
         setupUI()
         loadInstalledApps()
         setupClickListeners()
+        setupSwipeHint()
+    }
+    
+    private fun setupGestureDetector() {
+        gestureDetector = GestureDetector(this, object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                // Detect swipe up gesture
+                if (e1 != null && e2 != null) {
+                    val deltaY = e1.y - e2.y
+                    val deltaX = e1.x - e2.x
+                    
+                    // Check if it's a vertical swipe up (deltaY > 0) and not too horizontal
+                    if (deltaY > 100 && Math.abs(deltaX) < Math.abs(deltaY) && velocityY < -1000) {
+                        openAppDrawer()
+                        return true
+                    }
+                }
+                return false
+            }
+        })
     }
     
     private fun setupUI() {
@@ -42,8 +74,15 @@ class MainActivity : AppCompatActivity() {
             layoutManager = GridLayoutManager(this@MainActivity, 4) // 4 apps in a row
             adapter = appAdapter
         }
-        
-
+    }
+    
+    private fun setupSwipeHint() {
+        // Fade out the swipe hint after 3 seconds
+        Handler(Looper.getMainLooper()).postDelayed({
+            val fadeOut = ObjectAnimator.ofFloat(binding.swipeUpHint, "alpha", 0.7f, 0f)
+            fadeOut.duration = 1000
+            fadeOut.start()
+        }, 3000)
     }
     
     private fun loadInstalledApps() {
@@ -90,10 +129,6 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun setupClickListeners() {
-        binding.appDrawerButton.setOnClickListener {
-            openAppDrawer()
-        }
-        
         binding.settingsButton.setOnClickListener {
             openSettings()
         }
@@ -127,6 +162,10 @@ class MainActivity : AppCompatActivity() {
     private fun openWallpaperPicker() {
         val intent = Intent(this, WallpaperPickerActivity::class.java)
         startActivity(intent)
+    }
+    
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event)
     }
     
     override fun onResume() {
